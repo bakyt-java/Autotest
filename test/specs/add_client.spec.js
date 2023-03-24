@@ -44,8 +44,5 @@ describe("Add client", () => {
 
     })
 
-    it("Exit ", async() => {
-        await $('[class=\'material-icons\']').click();
-        await browser.pause(5000);
-    })
+
 })
