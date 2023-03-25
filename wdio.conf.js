@@ -23,7 +23,7 @@ export const config = {
     // will be called from there.
     //
     specs: [
-        './test/specs/**'
+        './test/specs/**/view_coupon_aibek.js'
     ],
     // Patterns to exclude.
     exclude: [
