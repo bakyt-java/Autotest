@@ -1,4 +1,4 @@
-describe("Add client", () => {
+describe("View Coupon Aibek", () => {
     it("Success login", async() => {
         await browser.url('http://167.114.201.175:5000/login');
         await browser.pause(5000);
