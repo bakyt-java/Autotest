@@ -24,6 +24,7 @@ describe("Add client", () => {
 
         const buttonView = await page.waitForSelector('[class="mat-menu-item"]');
         await buttonView.click();
+        await browser.pause(10000);
 
 
     });
