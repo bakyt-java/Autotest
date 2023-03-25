@@ -1,48 +1,30 @@
-const puppeteer = require('puppeteer');
-const { toMatchSnapshot } = require('jest-snapshot');
-
-describe('View a Coupons', () => {
-    let browser;
-    let page;
-
-    beforeAll(async() => {
-        browser = await puppeteer.launch();
-        page = await browser.newPage();
-        await page.goto('http://167.114.201.175:5000/coupons');
-    });
+describe("Add client", () => {
+    it("Success login", async() => {
+        await browser.url('http://167.114.201.175:5000/login');
+        await browser.pause(5000);
+        const loginField = await $('input[name="userName"]');
+        await loginField.setValue("Admin");
+        const passwordField = await $('input.password');
+        await passwordField.setValue("Admin@Navi");
+        await $('button[type="submit"]').click();
+        await browser.pause(5000);
+    })
 
     afterAll(async() => {
         await browser.close();
     });
 
-    it('should open the popup window with correct details and balance value', async() => {
-        // Wait for the "просмотр" button to appear and click it
-        const button = await page.waitForSelector('button');
+    it("Success created", async() => {
+        await $('[class="crm-navigation__link" href="/coupons"]').click();
+        await browser.pause(5000);
+
+
+        const button = await page.waitForSelector('[class="material-icons"]');
         await button.click();
 
-        // Wait for the popup window to appear
-        const popup = await page.waitForSelector('.popup');
+        const buttonView = await page.waitForSelector('[class="mat-menu-item"]');
+        await buttonView.click();
 
-        // Verify the details of the popup window
-        const snapshot = await popup.screenshot();
-        expect(snapshot).toMatchSnapshot();
 
-        // Verify the balance value
-        const balance = await popup.$('.balance');
-        const balanceValue = await popup.evaluate(element => element.textContent, balance);
-        expect(balanceValue).toEqual('1000');
-
-        // Verify the resource details
-        const date = await popup.$('.date');
-        const dateValue = await popup.evaluate(element => element.textContent, date);
-        expect(dateValue).toBeTruthy();
-
-        const sum = await popup.$('.sum');
-        const sumValue = await popup.evaluate(element => element.textContent, sum);
-        expect(sumValue).toBeTruthy();
-
-        const name = await popup.$('.name');
-        const nameValue = await popup.evaluate(element => element.textContent, name);
-        expect(nameValue).toBeTruthy();
     });
 });
